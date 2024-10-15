@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hình Chữ Nhật</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color:#d89ff3 ;
+        }
+
+        .container {
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #0094ff;
+            text-align: center;
+            width: 300px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #ff00dc;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #808080;
+            }
+
+        .output {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Tính Chu vi và Diện tích Hình Chữ Nhật</h2>
+        <label for="chieudai">Chiều dài:</label>
+        <input type="text" id="chieudai" placeholder="Nhập chiều dài">
+
+        <label for="chieurong">Chiều rộng:</label>
+        <input type="text" id="chieurong" placeholder="Nhập chiều rộng">
+
+        <button onclick="tinhChuVi()">Tính Chu vi</button>
+        <button onclick="tinhDienTich()">Tính Diện tích</button>
+        <button onclick="nhapLai()">Nhập lại</button>
+
+        <div class="output" id="result"></div>
+    </div>
+
+    <script>
+        function tinhChuVi() {
+            const chieudai = parseFloat(document.getElementById("chieudai").value);
+            const chieurong = parseFloat(document.getElementById("chieurong").value);
+
+            if (isNaN(chieudai) || isNaN(chieurong)) {
+                document.getElementById("result").innerText = "Vui lòng nhập số hợp lệ.";
+                return;
+            }
+
+            const chuvi = 2 * (chieudai + chieurong);
+            document.getElementById("result").innerText = "Chu vi HCN là: " + chuvi;
+        }
+
+        function tinhDienTich() {
+            const chieudai = parseFloat(document.getElementById("chieudai").value);
+            const chieurong = parseFloat(document.getElementById("chieurong").value);
+
+            if (isNaN(chieudai) || isNaN(chieurong)) {
+                document.getElementById("result").innerText = "Vui lòng nhập số hợp lệ.";
+                return;
+            }
+
+            const dientich = chieudai * chieurong;
+            document.getElementById("result").innerText = "Diện tích HCN là: " + dientich;
+        }
+
+        function nhapLai() {
+            document.getElementById("chieudai").value = "";
+            document.getElementById("chieurong").value = "";
+            document.getElementById("result").innerText = "";
+        }
+    </script>
+</body>
+</html>

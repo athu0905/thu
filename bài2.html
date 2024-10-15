@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xét Kết Quả Học Tập</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #23eee8;
+        }
+
+        .container {
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #ccc;
+            text-align: center;
+            width: 300px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 9px;
+            background-color: #ff006e;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #4cff00;
+            }
+
+        .output {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Điểm các môn</h3>
+
+        <label for="toan">Toán:</label>
+        <input type="text" id="toan" placeholder="Nhập điểm Toán">
+
+        <label for="ly">Lý:</label>
+        <input type="text" id="ly" placeholder="Nhập điểm Lý">
+
+        <label for="hoa">Hóa:</label>
+        <input type="text" id="hoa" placeholder="Nhập điểm Hóa">
+
+        <button onclick="tinhTBKT()">Tính TBKT</button>
+        <button onclick="nhapLai()">Nhập lại</button>
+        <button onclick="thoat()">Thoát</button>
+
+        <div class="output" id="tbkt"></div>
+        <div class="output" id="ketqua"></div>
+    </div>
+
+    <script>
+        function tinhTBKT() {
+            const toan = parseFloat(document.getElementById("toan").value);
+            const ly = parseFloat(document.getElementById("ly").value);
+            const hoa = parseFloat(document.getElementById("hoa").value);
+
+            if (isNaN(toan) || isNaN(ly) || isNaN(hoa)) {
+                document.getElementById("tbkt").innerText = "Vui lòng nhập điểm hợp lệ cho tất cả các môn.";
+                document.getElementById("ketqua").innerText = "";
+                return;
+            }
+
+            const tbkt = (toan + ly + hoa) / 3;
+            document.getElementById("tbkt").innerText = "TBKT là: " + tbkt.toFixed(2);
+
+            if (tbkt >= 5) {
+                document.getElementById("ketqua").innerText = "Kết quả: Đậu";
+            } else {
+                document.getElementById("ketqua").innerText = "Kết quả: Rớt";
+            }
+        }
+
+        function nhapLai() {
+            document.getElementById("toan").value = "";
+            document.getElementById("ly").value = "";
+            document.getElementById("hoa").value = "";
+            document.getElementById("tbkt").innerText = "";
+            document.getElementById("ketqua").innerText = "";
+            document.getElementById("toan").focus();
+        }
+
+        function thoat() {
+            if (confirm("Bạn có chắc chắn muốn thoát?")) {
+                window.close();
+            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <label for="so1">Nhập số thứ nhất</label>
+    <input id="so1" type="text" />
+    <br />
+    <br />
+    <label for="so2">Nhập số thứ hai</label>
+    <input id="so2" type="text" />
+    <button onclick="Tong2so()">Tính tổng</button>
+    <p id="ketqua">Kết quả</p>
+    <script>
+        function Tong2so() {
+            var so1 = parseFloat(document.getElementById('so1').value);
+            var so2 = parseFloat(document.getElementById('so2').value);
+            var tong = so1 + so2;
+            document.getElementById('ketqua').innerHTML = "Tổng hai số là " + tong;
+        }
+    </script>
+</body>
+</html>

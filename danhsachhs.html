@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý học sinh</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #cfb0f6;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label, select, input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .listbox, .actions {
+            width: 45%;
+        }
+
+            .actions button {
+                display: block;
+                width: 100%;
+                margin-bottom: 10px;
+                padding: 10px;
+                background-color: #eb37d7;
+                color: white;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+
+                .actions button:hover {
+                    background-color: #eb37d7;
+                }
+
+        select {
+            height: 200px;
+        }
+
+        .btn-small {
+            background-color: #eb37d7;
+        }
+
+            .btn-small:hover {
+                background-color: #eb37d7;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Quản lý học sinh</h2>
+
+        <label for="hoten">Họ tên:</label>
+        <input type="text" id="hoten" placeholder="Nhập họ tên học sinh">
+
+        <label for="lop">Lớp:</label>
+        <select id="lop">
+            <option value="A">Lớp A</option>
+            <option value="B">Lớp B</option>
+        </select>
+
+        <div class="flex-container">
+            <div class="listbox">
+                <h3>Danh sách Lớp A</h3>
+                <select id="listboxA" multiple></select>
+            </div>
+
+            <div class="actions">
+                <button onclick="addStudent()">Nhập</button>
+                <button onclick="moveToB()">></button>
+                <button onclick="moveToA()"><<</button>
+                <button onclick="moveAllToB()">>></button>
+                <button onclick="moveAllToA()"><<</button>
+                <button class="btn-small" onclick="deleteStudent()">Xóa</button>
+            </div>
+
+            <div class="listbox">
+                <h3>Danh sách Lớp B</h3>
+                <select id="listboxB" multiple></select>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function addStudent() {
+        const hoten = document.getElementById('hoten').value;
+        const lop = document.getElementById('lop').value;
+
+        if (hoten.trim() === '') {
+            alert('Vui lòng nhập họ tên học sinh');
+            return;
+        }
+
+        const listbox = lop === 'A' ? document.getElementById('listboxA') : document.getElementById('listboxB');
+        const option = document.createElement('option');
+        option.text = hoten;
+        listbox.add(option);
+
+        document.getElementById('hoten').value = '';  // Clear input field
+    }
+
+    function moveToB() {
+        moveSelected(document.getElementById('listboxA'), document.getElementById('listboxB'));
+    }
+
+    function moveToA() {
+        moveSelected(document.getElementById('listboxB'), document.getElementById('listboxA'));
+    }
+
+    function moveAllToB() {
+        moveAll(document.getElementById('listboxA'), document.getElementById('listboxB'));
+    }
+
+    function moveAllToA() {
+        moveAll(document.getElementById('listboxB'), document.getElementById('listboxA'));
+    }
+
+    function deleteStudent() {
+        const listboxA = document.getElementById('listboxA');
+        const listboxB = document.getElementById('listboxB');
+
+        if (listboxA.selectedIndex >= 0) {
+            listboxA.remove(listboxA.selectedIndex);
+        } else if (listboxB.selectedIndex >= 0) {
+            listboxB.remove(listboxB.selectedIndex);
+        } else {
+            alert('Vui lòng chọn học sinh để xóa');
+        }
+    }
+
+    function moveSelected(fromList, toList) {
+        const selectedOptions = [...fromList.options].filter(option => option.selected);
+        selectedOptions.forEach(option => {
+            const newOption = document.createElement('option');
+            newOption.text = option.text;
+            toList.add(newOption);
+            fromList.remove(option.index);
+        });
+    }
+
+    function moveAll(fromList, toList) {
+        const allOptions = [...fromList.options];
+        allOptions.forEach(option => {
+            const newOption = document.createElement('option');
+            newOption.text = option.text;
+            toList.add(newOption);
+        });
+        fromList.innerHTML = '';  // Clear the listbox
+    }
+    </script>
+
+</body>
+</html>
